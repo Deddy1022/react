@@ -1,12 +1,17 @@
-import Counter from "./Counter";
-import { ContextProvider, initState } from "./CounterContext";
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import Cart from "./components/Cart"
+import ProductList from "./components/ProductList"
+import { useState } from "react"
 
 export default function App() {
+  const [viewCart, setViewCart] = useState<boolean>(false);
+  const pageContent = viewCart ? <Cart />: <ProductList />
   return (
-    <div>
-      <ContextProvider count={initState.count} text={initState.text} >
-        <Counter>{ (n: number) => <>Counter: {n}</> }</Counter>
-      </ContextProvider>
-    </div>
+    <>
+      <Header viewCart={viewCart} setViewCart={setViewCart} />
+      { pageContent }
+      <Footer viewCart={viewCart} />
+    </>
   )
 }
